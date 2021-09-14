@@ -1,19 +1,19 @@
 import { getByPlaceholderText } from "@testing-library/dom";
 import React from "react";
 
-const Counter = (props) => {
+const Counter = ({ value, id, name, onDecrement, onIncrement, onDelete }) => {
   const formValue = () => {
-    return props.value === 0 ? "Zero" : props.value;
+    return value === 0 ? "Zero" : value;
   };
   const getBadgeClasses = () => {
     let clasess = "badge m-2 bg-";
-    clasess += props.value === 0 ? "danger" : "primary";
+    clasess += value === 0 ? "danger" : "primary";
     return clasess;
   };
 
   return (
     <React.Fragment>
-      <h4>{props.name}</h4>
+      <h4>{name}</h4>
       <span
         style={{ fontSize: "30px", fontWeight: "bold" }}
         className={getBadgeClasses()}
@@ -21,20 +21,20 @@ const Counter = (props) => {
         {formValue()}
       </span>
       <button
-        onClick={() => props.onIncrement(props.id)}
+        onClick={() => onIncrement(id)}
         className={"btn btn-secondary btn-sm"}
       >
         Increment
       </button>
       <button
-        onClick={() => props.onDecrement(props.id)}
+        onClick={() => onDecrement(id)}
         className={"btn btn-secondary btn-sm"}
       >
         Decrement
       </button>
       <button
         className="btn btn-danger btn-sm m-2"
-        onClick={() => props.onDelete(props.id)}
+        onClick={() => onDelete(id)}
       >
         Delete
       </button>
