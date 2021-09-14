@@ -1,53 +1,42 @@
 import { getByPlaceholderText } from "@testing-library/dom";
-import React, { useState } from "react";
+import React from "react";
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
-  const tags = ["tag1", "tag2", "tag3"];
-
-  const formCount = () => {
-    return count === 0 ? "Zero" : count;
+const Counter = (props) => {
+  const formValue = () => {
+    return props.value === 0 ? "Zero" : props.value;
   };
-  const getBageClasses = () => {
+  const getBadgeClasses = () => {
     let clasess = "badge m-2 bg-";
-    clasess += count === 0 ? "danger" : "primary";
+    clasess += props.value === 0 ? "danger" : "primary";
     return clasess;
-  };
-  const renderTags = () => {
-    if (tags.length === 0) return "Теги не найдены";
-    return tags.map((tag) => <li key={tag}>{tag}</li>);
-  };
-  const handleIncrement = (productId) => {
-    console.log(productId);
-    setCount(count + 1);
-  };
-  const handleDecrement = (productId) => {
-    if (count > 0) {
-      setCount(count - 1);
-    }
   };
 
   return (
     <React.Fragment>
-      {tags.length === 0 && "Теги не найдены"}
-      {renderTags()}
+      <h4>{props.name}</h4>
       <span
         style={{ fontSize: "30px", fontWeight: "bold" }}
-        className={getBageClasses()}
+        className={getBadgeClasses()}
       >
-        {formCount()}
+        {formValue()}
       </span>
       <button
-        onClick={() => handleIncrement({ id: 1 })}
+        onClick={() => props.onIncrement(props.id)}
         className={"btn btn-secondary btn-sm"}
       >
         Increment
       </button>
       <button
-        onClick={() => handleDecrement({ id: 1 })}
+        onClick={() => props.onDecrement(props.id)}
         className={"btn btn-secondary btn-sm"}
       >
         Decrement
+      </button>
+      <button
+        className="btn btn-danger btn-sm m-2"
+        onClick={() => props.onDelete(props.id)}
+      >
+        Delete
       </button>
     </React.Fragment>
   );
